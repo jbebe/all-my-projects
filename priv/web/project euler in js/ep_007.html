@@ -1,0 +1,23 @@
+<html><body><script type="text/javascript">
+var counter = 0;
+var p = 2;
+
+function isPrime(number){
+	var i = 2; 
+	while (i < number){
+		if (number%i == 0) return false;
+		i++;
+	}
+	return true;
+}
+
+while (true){
+	if (isPrime(p)){
+		console.log(p);
+		counter++;
+		if (counter == 10001)
+			alert(p);
+	}
+	p++;
+}
+</script></body></html>

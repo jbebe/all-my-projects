@@ -1,0 +1,133 @@
+<canvas></canvas>
+<script>
+	var c = document.getElementsByTagName('canvas')[0];
+	var a = c.getContext('2d');
+	var SIZE = c.width = c.height = 256;
+
+	function drawImage(imagename){
+		var img = new Image();
+		img.src = imagename;
+		a.drawImage(img,0,0);
+	}
+	
+	function getColorDist(a,b){
+		return Math.pow(a[0]-b[0], 2) + Math.pow(a[1]-b[1], 2) + Math.pow(a[2]-b[2], 2);
+	}
+	
+	// draw starry night
+	drawImage("pals.png");
+	
+	// get and put all pixels to an array
+	var starry = new Array(SIZE*SIZE);
+	var starryImageData = a.getImageData(0, 0, SIZE, SIZE);
+	var starryContextPixelArray = starryImageData.data;
+	for (var i = 0, n = starryContextPixelArray.length; i < n; i += 4) {
+		starry[(i/4)|0] = [
+			starryContextPixelArray[i], 
+			starryContextPixelArray[i+1],
+			starryContextPixelArray[i+2]
+		];
+	}
+	
+	// draw mona
+	drawImage("monalisa.png");
+	
+	// get pixels to mona
+	// get and put all pixels to an array
+	var mona = new Array(SIZE);
+	for (var i = 0; i < SIZE; ++i) 
+		mona[i] = new Array(SIZE);
+	
+	var monaImageData = a.getImageData(0, 0, SIZE, SIZE);
+	var monaContextPixelArray = monaImageData.data;
+	for (var i = 0, w = 0, h = 0, n = monaContextPixelArray.length; i < n; i += 4){
+		mona[h][w] = [
+			monaContextPixelArray[i], 
+			monaContextPixelArray[i+1], 
+			monaContextPixelArray[i+2]
+		];
+		w += 1;
+		if (w >= SIZE){
+			w = 0;
+			h += 1;
+		}
+	}
+	alert("everything is loaded. mona[255][255][0]: " + mona[255][255][0]);
+	/*
+	// replacing...
+	var min_idx;
+	var min_val;
+	for (var h = 0; h < SIZE; ++h){
+		for (var w = 0; w < SIZE; ++w){
+			// check for best color match in starry
+			min_idx = 0;
+			min_val = getColorDist(mona[h][w], starry[0]);
+			var curr_val;
+			for (var i = 1, len = starry.length; i < len; ++i){
+				curr_val = getColorDist(mona[h][w], starry[i]);
+				if (curr_val < min_val){
+					min_val = curr_val;
+					min_idx = i;
+				}
+			}
+			// replace color
+			mona[h][w].r = starry[min_idx].r;
+			mona[h][w].g = starry[min_idx].g;
+			mona[h][w].b = starry[min_idx].b;
+			// remove used color in starry
+			starry.splice(min_idx, 1);
+		}
+	}
+	*/
+	var direction = [0, 1, 0, -1];
+	var curr_end = [0, 0, 1, 1];
+	var h = SIZE/2|0, 
+		w = SIZE/2|0, 
+		dir = 0;
+	var min_idx;
+	var min_val;
+	while (curr_end[dir] < 255-2){
+		curr_end[dir] += 2;
+		dir = (dir + 1) % 4;
+		for (var k = 0; k < curr_end[dir]; ++k){
+			h += direction[(dir + 1) % 4];
+			w += direction[(dir + 0) % 4];
+			
+			// find similar pixel
+			min_idx = 0;
+			min_val = getColorDist(mona[h][w], starry[0]);
+			var curr_val;
+			for (var i = 1, len = starry.length; i < len; ++i){
+				curr_val = getColorDist(mona[h][w], starry[i]);
+				if (curr_val < min_val){
+					min_val = curr_val;
+					min_idx = i;
+				}
+			}
+			
+			// replace color
+			mona[h][w][0] = starry[min_idx][0];
+			mona[h][w][1] = starry[min_idx][1];
+			mona[h][w][2] = starry[min_idx][2];
+			
+			// remove used color in starry
+			starry.splice(min_idx, 1);
+		}
+	}
+	//alert("replacement is finished. changed: mona[250][19].r: " + mona[250][19].r);
+	
+	// load back to monaContextPixelArray and draw
+	for (var i = 0, w = 0, h = 0, n = monaContextPixelArray.length; i < n; i += 4){
+		monaContextPixelArray[i]   = mona[h][w][0];
+		monaContextPixelArray[i+1] = mona[h][w][1];
+		monaContextPixelArray[i+2] = mona[h][w][2];
+		
+		w += 1;
+		if (w >= SIZE){
+			w = 0;
+			h += 1;
+		}
+	}
+	a.putImageData(monaImageData, 0, 0);
+
+</script>

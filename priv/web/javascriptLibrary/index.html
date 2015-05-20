@@ -1,0 +1,207 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+	<title>title</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<meta name="description" content="" />
+	<meta name="keywords" content="" />
+	<meta name="robots" content="index,follow" />	
+	<script type="text/javascript" src="sh_main.min.js"></script>
+	<script type="text/javascript" src="sh_javascript_dom.min.js"></script>
+	<link rel="stylesheet" type="text/css" href="sh_whitengrey.min.css" />
+	<script type="text/javascript" src="minJS.min.js"></script>	
+	<script type="text/javascript">
+		d.load(sh_highlightDocument);
+		d.load(function(){
+			d.i("foo").on("click",function(){
+				d.i("foo").m(320,500,"width","",function(){
+					d.i("foo")._bg("#a55");
+					d.i("foo")._c("#ddd");
+					d.i("foo").h(function(){
+						return d.i("foo").h()+"\
+						and some space and color";
+					});
+				});
+			},"once");
+		});
+	</script>
+	<link rel="stylesheet" href="style.css"/>
+</head>
+
+<body>
+	<div id="container">
+		<div id="logo"><span>minJS </span> type least, do everything - JavaScript framework</div>
+			<div id="download">Latest relase: <a href="minJS.min.js">minJS.js</a> (0.1)</div>
+		<div id="text">
+			<h1>What is it even about?</h1>
+			There is clearly a need for CSS... oh I mean for JavaScript to be smaller. getElementById is hell of a long word. 
+			That is why I made this framework. I did not want to do something like jQuery. Selectors, animations.. and tons of useless stuff.
+			The only thing I wanted is something small that interprets what I want by a few letters.
+			This is what I was thinking about: 
+<pre class="sh_javascript_dom preElement">
+function d_getId(id){
+	return document.getElementById(id);
+}
+d_getId("foo").innerHTML = "...";
+</pre>
+			Fine... but it is like a loser trying to reinvent the wheel. I had to go deeper...<br/>
+			So far I am here:
+<pre class="sh_javascript_dom preElement">
+d.i("foo").on("click",function(){
+	d.i("foo").m(350,500,"width","",function(){
+		d.i("foo")._bg("#a55");
+		d.i("foo")._c("#ddd");
+		d.i("foo").h(function(){
+			return d.i("foo").h()+"\
+			and some space and color";
+		});
+	});
+},"once");
+</pre>
+<div id="foo" class="foos" style="background:#bebe93;width:130px;text-align:center;border:#000 1px solid;cursor:pointer">&lt;div id="foo"&gt;</div>
+			Well... It's quite difficult at first but you must admit that I don't really use long commands.
+			<h1>Let's see the structure!</h1>
+			The letter 'd' is like $ in other frameworks. It's a reference to 'document.'. Easy to memorize and - of course - short.
+			Everything after 'd.' is a command that can be chained. For better look, see this example:
+<pre class="sh_javascript_dom preElement">
+d.i("foo")
+	._bg("#000")
+	._mt("100px")
+	.h("Hello World!")
+	.d();
+</pre>
+			<h1>List of features</h1>
+			After that I introduced the function name, 'd', and said it can be chained, let's move on.
+			I tried to use one-letter function names. Here is a list of the existing features of the framework:
+			<h2>Selectors</h2>
+			<b>id</b> - arguments: id  - not much to say
+			<pre class="sh_javascript_dom preElement">d.i("foo");</pre>
+			<b>tag name</b> - arguments: tag name, parent element<br/>
+			tag is obvious, parent must be an id, or leave blank and it becomes 'body'.
+			<pre class="sh_javascript_dom preElement">d.t("foo","container");</pre>
+			<b>class</b> - arguments: class name, parent<br/>
+			same as tag. parent is an id. but it's a bit more intelligent. If only one element exists under the 
+			selected class, it becomes an element. If there're more than one, it becomes an element array so be careful.
+			<pre class="sh_javascript_dom preElement">d.c("menuitems","menu");</pre>
+			<b>instant returner</b> - arguments: -<br/>
+			This command is very useful to work with other DOM commands. The command returns the element for further manipulation.
+			<pre class="sh_javascript_dom preElement">d.i("foo").r(); // now you can use .innerHTML</pre>
+			
+			<h2>Write / Read</h2>
+			<b>innerHTML</b> - arguments: string or function<br/>
+			Another intelligent function. If you write something into the brackets, it works almost like 'innerHTML'. 
+			But if you leave it blank, it returns the text of the element. 
+			So if you don't leave it blank, the function decide wether if it's an array-of-element or not, and fill (all of them) with what you give.
+			<pre class="sh_javascript_dom preElement">d.i("foo").h("Hello World!");</pre>
+			<b>attribute management</b> - arguments: attribute, option<br/>
+			There are two types of args. If you fill both of them, it sets the option to the attribute, 
+			and without option, you just get back the attribute as a string.
+			<pre class="sh_javascript_dom preElement">d.t("form").a("method"); // returns "POST"</pre>
+			<b>delete element</b> - arguments: -<br/>
+			This function has no args, but it deletes every element what you selected.
+			It moves every selected ones to a temporary element in body and deletes it by one command.
+			<pre class="sh_javascript_dom preElement">d.c("menuitems").d();</pre>
+			
+			<h2>The mighty AJAX</h2>
+			<b>response</b> - arguments: server name, data/parameter, type (GET/POST)<br/>
+			Server name could be a php file, data is what you want to send to the server, and type is GET or POST. 
+			If you leave the last arg blank, the method will be 'GET'.
+			To avoid problems, I set the ajax command from asyncronous to syncronous. (hehe...) 
+			Therefore JavaScript has to wait for the response. I put a 2 seconds gate so after 2000ms 
+			in case of a freezed server, the function returns.<br/>
+			<input type="text" id="input" style="width:300px;" value="type something here" />&nbsp;
+			<input type="submit" id="submitX" value="Send" />
+			<script type="text/javascript">
+				var responseInput = d.i("input").r();
+				responseInput.onclick = function(){if(responseInput.value == "type something here") responseInput.value = "";}
+				responseInput.onblur = function(){if(responseInput.value == "") responseInput.value = "type something here";}
+				d.i("submitX").on("click",function(){
+					responseInput.value = "Encoded to base64: "+d.x("server.php","data="+responseInput.value,"POST");				
+				},"once");
+			</script>
+			<pre class="sh_javascript_dom preElement">
+//example for getting response
+d.i("foo").h(function(){
+	d.x("server.php","name=Bob&age=15","POST");
+});</pre>
+			<h2>Animating elements</h2>
+			<b>animation</b> - arguments: target value, length (ms), style, sinus, callback<br/>
+			Target: is the required value to animate to.<br/>
+			Length: is the length of procedure.<br/>
+			Style: is a css style to be used.<br/>
+			Sinus: sinus moving or simple addition.<br/>
+			Callback: is a function to be executed after the animation ends.
+<pre class="sh_javascript_dom preElement">d.i("foo").m(200,1000,"left","sin",function(){
+	alert("Done");
+});</pre>
+			
+			<h2>Events</h2>
+			<b>on event</b> - arguments: on... what?, function for event, type<br/>
+			First argument is the event type. Function will be executed during the event, and 
+			type is a special feature. If it's "loop", it is executed every 25 ms. 
+			If it's "once" it's executed once. Leave blank to use it as general.
+<pre class="sh_javascript_dom preElement">
+d.i("foo").on("mouseover",function(){
+	alert("Hello!");
+},"loop");
+</pre>
+			
+			<h2>Create</h2>
+			<b>create an element</b> - arguments: tag name #/. class/id name<br/>
+			Just like in CSS. div#foo, span.list. I think you get it.
+<pre class="sh_javascript_dom preElement">
+d.i("foo").e("div#inner-foo"); // inner-foo in foo!
+</pre>
+
+			<h2>Load function</h2>
+			<b>document.onload</b> - arguments: function
+			Load your own script.
+<pre class="sh_javascript_dom preElement">
+d.load(function(){
+	alert("Website loaded");
+});
+</pre>
+
+			<h2>Load whole script</h2>
+			<b>include</b> - arguments: url
+			Load script or style from an url
+<pre class="sh_javascript_dom preElement">
+d.load("https://.../jquery.min.js");
+</pre>
+
+			<h2>Styles shortcut</h2>
+			<b>margin-top:</b> <pre class="sh_javascript_dom preElement">d.i("foo")._mt("100px");</pre>
+			<b>margin-bottom:</b> <pre class="sh_javascript_dom preElement">d.i("foo")._mb("50px");</pre>
+			<b>margin-left:</b> <pre class="sh_javascript_dom preElement">d.i("foo")._ml("40px");</pre>
+			<b>margin-right:</b> <pre class="sh_javascript_dom preElement">d.i("foo")._mr("30px");</pre>
+			<b>margin:</b> <pre class="sh_javascript_dom preElement">d.i("foo")._m("20px 30px 10px 30px");</pre>
+			<b>padding-top:</b> <pre class="sh_javascript_dom preElement">d.i("foo")._pt("100px");</pre>
+			<b>padding-bottom:</b> <pre class="sh_javascript_dom preElement">d.i("foo")._pb("50px");</pre>
+			<b>padding-left:</b> <pre class="sh_javascript_dom preElement">d.i("foo")._pl("40px");</pre>
+			<b>padding-right:</b> <pre class="sh_javascript_dom preElement">d.i("foo")._pr("30px");</pre>
+			<b>padding:</b> <pre class="sh_javascript_dom preElement">d.i("foo")._p("50px 40px 30px 20px");</pre>
+			<b>width:</b> <pre class="sh_javascript_dom preElement">d.i("foo")._w("200px");</pre>
+			<b>height:</b> <pre class="sh_javascript_dom preElement">d.i("foo")._h("100px");</pre>
+			<b>display:</b> <pre class="sh_javascript_dom preElement">d.i("foo")._d("none");</pre>
+			<b>background:</b> <pre class="sh_javascript_dom preElement">d.i("foo")._bg("url(lines.gif) no-repeat 0 0");</pre>
+			<b>float:</b> <pre class="sh_javascript_dom preElement">d.i("foo")._fl("left");</pre>
+			<b>border:</b> <pre class="sh_javascript_dom preElement">d.i("foo")._b("#000 1px solid");</pre>
+			<b>border-top:</b> <pre class="sh_javascript_dom preElement">d.i("foo")._bt("#000 1px solid");</pre>
+			<b>border-bottom:</b> <pre class="sh_javascript_dom preElement">d.i("foo")._bb("#000 1px solid");</pre>
+			<b>border-left:</b> <pre class="sh_javascript_dom preElement">d.i("foo")._bl("#000 1px solid");</pre>
+			<b>border-right:</b> <pre class="sh_javascript_dom preElement">d.i("foo")._br("#000 1px solid");</pre>
+			<b>font:</b> <pre class="sh_javascript_dom preElement">d.i("foo")._f("italic 12px/15px Arial");</pre>
+			<b>color:</b> <pre class="sh_javascript_dom preElement">d.i("foo")._c("#47326b");</pre>
+			<b>position:</b> <pre class="sh_javascript_dom preElement">d.i("foo")._pos("absolute");</pre>
+			<b>box-shadow:</b> <pre class="sh_javascript_dom preElement">d.i("foo")._bsh("0 0 10px #000");</pre>
+			<b>border-radius:</b> <pre class="sh_javascript_dom preElement">d.i("foo")._bra("4px");</pre>
+			<b>text-decoration:</b> <pre class="sh_javascript_dom preElement">d.i("foo")._td("underline");</pre>
+			<b>text-shadow:</b> <pre class="sh_javascript_dom preElement">d.i("foo")._ts("-1px -5px 2px #000");</pre>
+			<b>text-align:</b> <pre class="sh_javascript_dom preElement">d.i("foo")._ta("center");</pre>
+			
+			<b style="float:right">made by Bálint Juhász</b>
+			<span style="clear:both">&nbsp;</span>
+		</div>
+	</div>
+</body>
+</html>

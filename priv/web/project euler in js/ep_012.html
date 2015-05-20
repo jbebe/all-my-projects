@@ -1,0 +1,34 @@
+<html><body><script type="text/javascript">
+var i = 0;
+var max = 0;
+var tmp_max = 0;
+var isOver200 = false;
+var isOver400 = false;
+
+function getNumOfDiv(number){
+	var count = 1;
+	for (p = 2; p <= number; p++){
+		if (number%p == 0)
+			count++;
+	}
+	return count;
+}
+
+while (true){
+	max = getNumOfDiv(((i*(i+1))/2));
+	if (max > 500){
+		alert((i*(i+1))/2);
+		break;
+	}
+	if (isOver200 == false && max > 200){
+		alert("elértük a 200-at");
+		isOver200 = true;
+	}
+	if (isOver400 == false && max > 400){
+		alert("elértük a 400-at");
+		isOver400 = true;
+	}
+	i++;
+}
+
+</script></body></html>

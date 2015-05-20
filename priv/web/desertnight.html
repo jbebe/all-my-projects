@@ -1,0 +1,120 @@
+<!doctype html>
+<html>
+	<head>
+		<title>desert night</title>
+		<meta charset="utf-8" />
+		<style type="text/css">
+			body {
+				margin: 0;
+				overlow: hidden;
+				padding: 0;
+			}
+		</style>
+	</head>
+	<body><canvas id="c"></canvas><script>
+var b = document.body;
+			var c = document.getElementsByTagName('canvas')[0];
+			var a = c.getContext('2d');
+			document.body.clientWidth; // fix bug in webkit: http://qfox.nl/weblog/218
+			
+			
+var WIDTH = c.width = 1000,
+	HEIGHT = c.height = 480;
+
+var scr = { data: [], size: 100, scale: 2 };
+var noise = new Array(scr.size);
+scr.data = new Array(scr.size);
+
+// sky
+var grd = a.createLinearGradient(600,100,WIDTH,HEIGHT);
+grd.addColorStop(1,"#ad8f46");
+grd.addColorStop(0,"#0f1726");
+
+a.fillStyle = grd;
+a.fillRect(0, 0, WIDTH, HEIGHT);
+
+
+// stars
+a.fillStyle = "rgba(255,255,255,0.4)";
+for (var h = 0; h < HEIGHT; ++h){
+	for (var w = 0; w < WIDTH/2; ++w){
+		if (Math.random()*(w+100) < 0.04){
+			a.fillRect(w,h,1,1);
+		}
+	}
+}
+
+
+// load raw noise
+for (var h = 0; h < scr.size; ++h){
+	noise[h] = new Array(scr.size);
+	for (var w = 0; w < scr.size; ++w){
+		noise[h][w] = Math.floor(Math.random()*256);
+	}
+}
+
+smooth_noise_1();
+
+
+// load terrain coords and align them
+for (var h = 0; h < scr.size; ++h){
+	scr.data[h] = new Array(scr.size);
+	for (var w = 0; w < scr.size; ++w){
+		var color_red = noise[h][w] 	+ (scr.size-h) 		- (1/(w*0.13+1))*1000;
+		var color_green = noise[h][w] 	+ 0.7*(scr.size-h)	- (1/(w*0.13+1))*1000;
+		var color_blue = noise[h][w] 	+ 0.1*(scr.size-h)	- (1/(w*0.13+1))*1000;
+		
+		var noise_terrain = Math.pow(noise[h][w],3);
+		
+		var mul_x = (h+5)*0.2;
+		var add_x = (scr.size-h+2)*scr.scale*6 - 1000;
+		var mul_y = (h+1)*0.7;
+		var add_y = -noise_terrain*0.00001 + 360 - (w/h-20)*0.4;
+		
+		scr.data[h][w] = { 
+			x: mul_x * scr.scale * w + add_x, 
+			y: Math.sqrt(mul_y * scr.scale * h) + add_y, 
+			color: "rgb("+Math.floor(color_red)+","+Math.floor(color_green)+","+Math.floor(color_blue)+")"
+		};
+	}
+}
+
+// display coords by quadrangle polygon
+for (var h = 1; h < scr.size; ++h){
+	for (var w = 1; w < scr.size; ++w){
+		a.fillStyle = scr.data[h][w].color;
+		a.beginPath();
+		a.moveTo(scr.data[h-1][w-1].x -1, scr.data[h-1][w-1].y -1);
+		a.lineTo(scr.data[h-1][w].x +1, scr.data[h-1][w].y -1);
+		a.lineTo(scr.data[h][w].x +1, scr.data[h][w].y +1);
+		a.lineTo(scr.data[h][w-1].x -1, scr.data[h][w-1].y +1);
+		a.fill();
+	}
+}
+
+// smooth noise by averaging area*area on terrain
+function smooth_noise_1(){
+	var area = 5,
+		min_x = 0, min_y = 0, max_x = 0, max_y = 0, average = 0;
+		
+	for (var h = 0; h < scr.size; ++h){
+		for (var w = 0; w < scr.size; ++w){
+			average = 0;
+			min_x = w;
+			min_y = h;
+			max_x = (w+area < scr.size) ? w + area : scr.size;
+			max_y = (h+area < scr.size) ? h + area : scr.size;
+			
+			for (var y = min_y; y < max_y; ++y){
+				for (var x = min_x; x < max_x; ++x){
+					average += noise[y][x];
+				}
+			}
+			
+			noise[h][w] = Math.floor(average/(area*area));
+		}
+	}
+}
+
+</script></body>
+</html>

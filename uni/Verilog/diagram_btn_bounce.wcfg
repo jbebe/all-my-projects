@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wave_config>
+   <wave_state>
+   </wave_state>
+   <db_ref_list>
+      <db_ref path="D:/BME/meres1/hazi/SSA3/vtf_btn_bounce_isim_beh.wdb" id="1" type="auto">
+         <top_modules>
+            <top_module name="glbl" />
+            <top_module name="vtf_btn_bounce" />
+         </top_modules>
+      </db_ref>
+   </db_ref_list>
+   <WVObjectSize size="6" />
+   <wvobject fp_name="/vtf_btn_bounce/btn_output_state" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">btn_output_state</obj_property>
+      <obj_property name="ObjectShortName">btn_output_state</obj_property>
+   </wvobject>
+   <wvobject fp_name="/vtf_btn_bounce/clk" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">clk</obj_property>
+      <obj_property name="ObjectShortName">clk</obj_property>
+   </wvobject>
+   <wvobject fp_name="/vtf_btn_bounce/btn" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">btn</obj_property>
+      <obj_property name="ObjectShortName">btn</obj_property>
+   </wvobject>
+   <wvobject fp_name="/vtf_btn_bounce/rtg_btn" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">rtg_btn</obj_property>
+      <obj_property name="ObjectShortName">rtg_btn</obj_property>
+   </wvobject>
+   <wvobject fp_name="/vtf_btn_bounce/btn_current_state" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">btn_current_state</obj_property>
+      <obj_property name="ObjectShortName">btn_current_state</obj_property>
+   </wvobject>
+   <wvobject fp_name="/vtf_btn_bounce/run_flag" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">run_flag</obj_property>
+      <obj_property name="ObjectShortName">run_flag</obj_property>
+   </wvobject>
+</wave_config>

@@ -1,0 +1,15 @@
+<html><body><script type="text/javascript">
+
+var number = 600851475143;
+var arr = [];
+var i = 2;
+
+while (i <= number){
+	if (number%i == 0){
+		arr.push(i);
+		number = number / i;
+	}
+	i++;
+}
+alert(arr);
+</script></body></html>

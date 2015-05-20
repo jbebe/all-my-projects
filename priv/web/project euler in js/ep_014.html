@@ -1,0 +1,23 @@
+<html><body><script type="text/javascript">
+var num = 13;
+var i = 13;
+var max = 0;
+var counter = 1;
+
+for (var i = 13; i < 1e7; i++){
+	counter = 1;
+	num = i;
+	while (num > 1){
+		if (num&1){
+			num *= 3;
+			num++;
+		}
+		else {
+			num >>= 1;
+		}
+		counter++;
+	}
+	if (counter > max) max = i;
+}
+document.write(max);
+</script></body></html>

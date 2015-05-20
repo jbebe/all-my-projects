@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html><head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+		<title>JS1k, 1k demo submission [ID]</title>
+		<meta charset="utf-8">
+	</head>
+	<body>
+		<canvas id="c"></canvas>
+<script>
+	var b = document.body;
+	var c = document.getElementsByTagName('canvas')[0];
+	var a = c.getContext('2d');
+	// must have vars
+	var WIDTH = c.width = 640,
+		HEIGHT = c.height = 480,
+		CENTER_X = (WIDTH/2)|0,
+		CENTER_Y = (HEIGHT/2)|0,
+		fps = 200; //(1000/30)|0;
+	
+	var default_block_size = 16;
+	var default_block_count = 20;
+	
+	// types
+	var blockList = new Array(default_block_count);
+	
+	var straight = 0, 	left = 1, 	right = 2;
+	var none = 0,		gap = 1, 	rock = 2, 	flame = 3;
+	var empty = 0,		left = 1, 	center = 2,	right = 3;
+	
+	var N = 0, S = 1, W = 2, E = 3;
+	
+	var nextDirArray = [
+		[0,-default_block_size],
+		[0, default_block_size],
+		[-default_block_size,0],
+		[default_block_size, 0]
+	];
+	
+	// init section
+	init();
+	setInterval(draw, fps);
+	
+	//functions
+	function init(){
+		for (var i = 0; i < default_block_count; ++i){
+			if (i < 3)
+				blockList[i] = {
+					type: straight,
+					obstacle: none,
+					star: empty
+				};
+			else 
+				blockList[i] = addBlock();
+		}
+	}
+	function draw(){
+		a.fillStyle = "#000";
+		a.fillRect(0,0,WIDTH,HEIGHT);
+		a.fillStyle = "#fff";
+
+		var currentX = CENTER_X, currentY = CENTER_Y;
+		var currentDir = N;
+		
+		for (var i = 0; i < default_block_count; ++i){
+			if (blockList[i].obstacle != gap){
+				a.fillStyle = "hsl(0,0%,"+Math.floor((default_block_count-i)*(100/default_block_count))+"%)";
+				a.fillRect(currentX, currentY, default_block_size, default_block_size);
+				
+				if (blockList[i].type == straight){
+					a.fillStyle = "#ff0";
+					switch (blockList[i].star){
+						case left:
+							a.fillRect(currentX+4, currentY+8, 2, 2);
+							break;
+						case right:
+							a.fillRect(currentX+12, currentY+8, 2, 2);
+							break;
+						case center:
+							a.fillRect(currentX, currentY, 2, 2);
+							break;
+					}
+				}
+			}
+			if (blockList[i].type == left) currentDir = turn("left", currentDir);
+			if (blockList[i].type == right) currentDir = turn("right", currentDir);
+			currentX += nextDirArray[currentDir][0];
+			currentY += nextDirArray[currentDir][1];
+		}
+		blockList.shift();
+		blockList.push(addBlock());
+		a.fillStyle = "#f00";
+		a.fillRect(CENTER_X+default_block_size/2-2, CENTER_Y+default_block_size/2-2, 4, 4);
+	}
+	function addBlock(){
+		var rand = Math.random();
+		var blockList = {
+			type: rand < 0.2 ? 
+					(rand < 0.1 ? left : right)
+					: straight,
+			obstacle: rand >= 0.2 ? 
+					(rand < 0.3 ? [gap,rock,flame][(Math.floor(rand*100)%3)] : none)
+					: none,
+			star: empty
+		};
+		blockList.star = 
+			(blockList.type == straight && blockList.obstacle == none) ? 
+				[left,center,right][(Math.floor(rand*100)%3)]
+				: empty;
+		return blockList;
+	}
+	function turn(way, currentDirection){
+		return (way == "left" ? [2,3,1,0] : [3,2,0,1])[currentDirection];
+	}
+</script>
+</body>
+</html>

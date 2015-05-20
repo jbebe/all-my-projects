@@ -1,0 +1,72 @@
+@echo off
+
+::  _________________
+:: |    VARIABLES   |
+:: `````````````````
+:: current directory
+echo current directory: %CD%
+:: current time hh:mm:ss.ms
+echo time: %TIME%
+:: current date yyyy-mmm-dd
+echo date: %DATE%
+:: random number between 0 - 32767
+echo random number: %RANDOM%
+:: error of last program
+echo error level: %ERRORLEVEL%
+:: cmd directory
+echo cmd directory: %CMDCMDLINE%
+
+::  _________________
+:: |    STRINGS     |
+:: `````````````````
+:: string concatenation
+set variable=string1^&string2
+:: substring
+%string:~from%
+%string:~from,size%
+:: last two letter
+%string:~-2%
+:: test strings, if a contains bc, echo 'yes'
+if not "%a:bc=%"=="%a%" echo yes 
+
+
+
+::  _________________
+:: | SPECIAL CHARS  |
+:: `````````````````
+:: use more commands in one line 1 --> 2 --> 3
+command1 & command2 & command3 
+:: like and AND symbol. if command1 is true, command2 is executed
+command1 && command2
+:: like an OR symbol. if comand1 is false, command2 is executed
+command1 || command2
+:: grouping
+(command1 || command2) && command2
+:: parameter separation
+command1 parameter1;parameter2,paramter3;parameter4
+:: special characters in arguments
+command1 ^(tasklist ^| more)
+:: Redirect standard input to read from the named file
+set file_input < filename
+:: Redirect standard output to write to the named file, w+
+text > filename
+:: Redirect standard output to write to the named file, a+
+text >> filename
+:: Redirect to handle h, 
+:: where handle is any of 
+:: 0—standard input, 
+:: 1—standard output, 
+:: 2—standard error, and more.
+>&h
+:: Redirect from handle h.
+<&h
+::print 
+text > PRN
+text > LPT1
+:: redirect multiple lines
+(
+  Echo sample text1
+  Echo sample text2
+) > c:\logfile.txt
+:: utf-8 to asci
+TYPE unicode.txt > asciifile.txt

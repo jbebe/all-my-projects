@@ -1,0 +1,41 @@
+
+MED - Minimalist EDitor
+
+Áttekintés
+	
+	A program egy egyszerû parancssori 
+	szövegszerkesztõt valósít meg, 
+	Windows platformon.
+
+Bemenet
+	
+	A programot parancssorból
+	a következõ módon tudjuk elindítani:
+
+	C:\>med
+
+	Amennyiben meglévõ fájlt szeretnénk 
+	szerkeszteni, a következõ parancsot
+	kell kiadnunk:
+
+	C:\>med <fájl>
+
+Kimenet
+
+	A CTRL-S billentyûkombinációval 
+	menthetjük el munkánkat. Ha új fájlt
+	szerkesztettünk, egy prompt kéri 
+	a nevét, elérési úttal együtt:
+
+	save to: C:\foo.txt_
+
+Használat
+	
+	A programban minden általános mozgás
+	mûködik, a billentyûzeten lévõ 
+	navigáló gombok illetve betûk. Használata
+	magától értetõdõ.
+	A képernyõn sorszám, aktuális sor illetve 
+	oszlop információ található.
+	A program képes primitív 
+	vágólaphasználatra és keresésre.

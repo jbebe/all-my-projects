@@ -1,0 +1,282 @@
+<html>
+
+<head>
+<meta http-equiv=Content-Type content="text/html; charset=windows-1252">
+<meta name=Generator content="Microsoft Word 12 (filtered)">
+<style>
+<!--
+ /* Font Definitions */
+ @font-face
+	{font-family:Wingdings;
+	panose-1:5 0 0 0 0 0 0 0 0 0;}
+@font-face
+	{font-family:"Cambria Math";
+	panose-1:2 4 5 3 5 4 6 3 2 4;}
+@font-face
+	{font-family:Calibri;
+	panose-1:2 15 5 2 2 2 4 3 2 4;}
+@font-face
+	{font-family:Consolas;
+	panose-1:2 11 6 9 2 2 4 3 2 4;}
+ /* Style Definitions */
+ p.MsoNormal, li.MsoNormal, div.MsoNormal
+	{margin-top:0cm;
+	margin-right:0cm;
+	margin-bottom:10.0pt;
+	margin-left:0cm;
+	line-height:115%;
+	font-size:11.0pt;
+	font-family:"Calibri","sans-serif";}
+p.MsoListParagraph, li.MsoListParagraph, div.MsoListParagraph
+	{margin-top:0cm;
+	margin-right:0cm;
+	margin-bottom:10.0pt;
+	margin-left:36.0pt;
+	line-height:115%;
+	font-size:11.0pt;
+	font-family:"Calibri","sans-serif";}
+p.MsoListParagraphCxSpFirst, li.MsoListParagraphCxSpFirst, div.MsoListParagraphCxSpFirst
+	{margin-top:0cm;
+	margin-right:0cm;
+	margin-bottom:0cm;
+	margin-left:36.0pt;
+	margin-bottom:.0001pt;
+	line-height:115%;
+	font-size:11.0pt;
+	font-family:"Calibri","sans-serif";}
+p.MsoListParagraphCxSpMiddle, li.MsoListParagraphCxSpMiddle, div.MsoListParagraphCxSpMiddle
+	{margin-top:0cm;
+	margin-right:0cm;
+	margin-bottom:0cm;
+	margin-left:36.0pt;
+	margin-bottom:.0001pt;
+	line-height:115%;
+	font-size:11.0pt;
+	font-family:"Calibri","sans-serif";}
+p.MsoListParagraphCxSpLast, li.MsoListParagraphCxSpLast, div.MsoListParagraphCxSpLast
+	{margin-top:0cm;
+	margin-right:0cm;
+	margin-bottom:10.0pt;
+	margin-left:36.0pt;
+	line-height:115%;
+	font-size:11.0pt;
+	font-family:"Calibri","sans-serif";}
+.MsoPapDefault
+	{margin-bottom:10.0pt;
+	line-height:115%;}
+@page WordSection1
+	{size:595.3pt 841.9pt;
+	margin:36.0pt 36.0pt 36.0pt 36.0pt;}
+div.WordSection1
+	{page:WordSection1;}
+ /* List Definitions */
+ ol
+	{margin-bottom:0cm;}
+ul
+	{margin-bottom:0cm;}
+-->
+</style>
+
+</head>
+
+<body lang=EN-GB>
+
+<div class=WordSection1>
+
+<p class=MsoNormal align=center style='text-align:center'><b><span
+style='font-size:14.0pt;line-height:115%'>Minimalist text EDitor</span></b></p>
+
+<p class=MsoNormal>&nbsp;</p>
+
+<p class=MsoNormal>A program feladata a parancssori szövegszerkesztés. <br>
+Képes új fájlt létrehozni illetve meglév&#337;t módosítani. Csak (Extended)
+ANSI <br>
+A Winapi.h könyvtár felhasználásával készült, így nem platformfüggetlen, bár
+könnyen átalakítható.</p>
+
+<p class=MsoNormal style='margin-bottom:0cm;margin-bottom:.0001pt;line-height:
+normal;text-autospace:none'>A program egy el&#337;re definiált méret&#369; 2D
+tömböt foglal le indítás után, ez lesz a buffer a szöveghez.</p>
+
+<p class=MsoNormal><br>
+<b><span style='font-size:12.0pt;line-height:115%'>A program 7 modulból áll:</span></b></p>
+
+<p class=MsoListParagraphCxSpFirst style='text-indent:-18.0pt'>1.<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span><b>med.c</b>
+- a program innen indul, globális változók vannak definiálva benne, illetve a
+main loop</p>
+
+<p class=MsoListParagraphCxSpMiddle style='text-indent:-18.0pt'>2.<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span><b>system.h</b>
+- Winapi-t felhasználó függvények helye</p>
+
+<p class=MsoListParagraphCxSpMiddle style='text-indent:-18.0pt'>3.<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span><b>screen.h</b>
+- kirajzolást végz&#337; függvények helye</p>
+
+<p class=MsoListParagraphCxSpMiddle style='text-indent:-18.0pt'><b>4.<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span></b><b>buffer.h
+- </b>memória és fájl I/O</p>
+
+<p class=MsoListParagraphCxSpMiddle style='text-indent:-18.0pt'><b>5.<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span></b><b>text_handling.h
+- </b>szöveg manipulálása</p>
+
+<p class=MsoListParagraphCxSpMiddle style='text-indent:-18.0pt'><b>6.<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span></b><b>key_fn.h
+- </b>billenty&#369;k konkrét eseményei</p>
+
+<p class=MsoListParagraphCxSpLast style='text-indent:-18.0pt'><b>7.<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span></b><b>events.h
+- </b>eseménykezel&#337;</p>
+
+<p class=MsoNormal><b><span style='font-size:12.0pt;line-height:115%'>A program
+m&#369;ködése:</span></b></p>
+
+<p class=MsoNormal>Külön inicializálja a program a konzolt, hogy megtudja a
+méreteit, a buffert, hogy üres legyen, illetve a vágólapot, ahova lehet majd
+kés&#337;bb kivágni vagy kimásolni. Ezután betölti a fájlt amit argumentumként
+megadtunk, vagy ha nem akkor csak az üres buffert adja nekünk amiben írhatunk. </p>
+
+<p class=MsoNormal>Ekkor bekerülünk a main loop-ba ahol a következ&#337; a
+sorrend:</p>
+
+<p class=MsoListParagraphCxSpFirst style='text-indent:-18.0pt'><span
+style='font-family:Symbol'>·<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span>kirajzolás: kirajzolja a buffer aktuális részét és az
+információsávot</p>
+
+<p class=MsoListParagraphCxSpLast style='text-indent:-18.0pt'><span
+style='font-family:Symbol'>·<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span>feldolgozás: feldolgozza a program a lenyomott billenty&#369;t és
+kiértékeli a hatását</p>
+
+<p class=MsoNormal><b><span style='font-size:12.0pt;line-height:115%'>Globális
+változók:</span></b></p>
+
+<p class=MsoNormal style='margin-bottom:0cm;margin-bottom:.0001pt;line-height:
+normal;text-autospace:none'><span style='font-size:9.5pt;font-family:Consolas;
+color:#2B91AF;background:white'>COORD</span><span style='font-size:9.5pt;
+font-family:Consolas;color:black;background:white'>  CURSOR        </span><b><span
+style='font-size:9.5pt;font-family:Consolas;color:#76923C;background:white'>X,Y
+koordináták által eltárolt kurzor pozíció</span></b></p>
+
+<p class=MsoNormal style='margin-bottom:0cm;margin-bottom:.0001pt;line-height:
+normal;text-autospace:none'><span style='font-size:9.5pt;font-family:Consolas;
+color:black;background:white'>       SELECTION[]   </span><b><span
+style='font-size:9.5pt;font-family:Consolas;color:#76923C;background:white'>a
+kijelöléshez használt koordináták</span></b></p>
+
+<p class=MsoNormal style='margin-bottom:0cm;margin-bottom:.0001pt;line-height:
+normal;text-autospace:none'><span style='font-size:9.5pt;font-family:Consolas;
+color:black;background:white'>&nbsp;</span></p>
+
+<p class=MsoNormal style='margin-bottom:0cm;margin-bottom:.0001pt;line-height:
+normal;text-autospace:none'><span style='font-size:9.5pt;font-family:Consolas;
+color:#2B91AF;background:white'>FILE</span><span style='font-size:9.5pt;
+font-family:Consolas;color:black;background:white'>   *DOCUMENT     </span><b><span
+style='font-size:9.5pt;font-family:Consolas;color:#76923C;background:white'>a
+dokumentum neve</span></b></p>
+
+<p class=MsoNormal style='margin-bottom:0cm;margin-bottom:.0001pt;line-height:
+normal;text-autospace:none'><span style='font-size:9.5pt;font-family:Consolas;
+color:black;background:white'>&nbsp;</span></p>
+
+<p class=MsoNormal style='margin-bottom:0cm;margin-bottom:.0001pt;line-height:
+normal;text-autospace:none'><span style='font-size:9.5pt;font-family:Consolas;
+color:blue;background:white'>int</span><span style='font-size:9.5pt;font-family:
+Consolas;color:black;background:white'>    WIDTH,        </span><b><span
+style='font-size:9.5pt;font-family:Consolas;color:#76923C;background:white'>konzol
+szélessége</span></b></p>
+
+<p class=MsoNormal style='margin-bottom:0cm;margin-bottom:.0001pt;line-height:
+normal;text-autospace:none'><span style='font-size:9.5pt;font-family:Consolas;
+color:black;background:white'>       HEIGHT,       </span><b><span
+style='font-size:9.5pt;font-family:Consolas;color:#76923C;background:white'>konzol
+magassága</span></b></p>
+
+<p class=MsoNormal style='margin-bottom:0cm;margin-bottom:.0001pt;line-height:
+normal;text-autospace:none'><span style='font-size:9.5pt;font-family:Consolas;
+color:black;background:white'>       BUFFER_WIDTH  </span><b><span
+style='font-size:9.5pt;font-family:Consolas;color:#76923C;background:white'>buffer
+szélessége(=konzol szélessége)</span></b></p>
+
+<p class=MsoNormal style='margin-bottom:0cm;margin-bottom:.0001pt;line-height:
+normal;text-autospace:none'><span style='font-size:9.5pt;font-family:Consolas;
+color:black;background:white'>       BUFFER_HEIGHT </span><b><span
+style='font-size:9.5pt;font-family:Consolas;color:#76923C;background:white'>buffer
+magassága (fájl sorai)</span></b></p>
+
+<p class=MsoNormal style='margin-bottom:0cm;margin-bottom:.0001pt;line-height:
+normal;text-autospace:none'><span style='font-size:9.5pt;font-family:Consolas;
+color:black;background:white'>       INPUT_KEY,    </span><b><span
+style='font-size:9.5pt;font-family:Consolas;color:#76923C;background:white'>lenyomott
+billenty&#369; kódja</span></b></p>
+
+<p class=MsoNormal style='margin-bottom:0cm;margin-bottom:.0001pt;line-height:
+normal;text-autospace:none'><span style='font-size:9.5pt;font-family:Consolas;
+color:black;background:white'>       ACTUAL_VPOS   </span><b><span
+style='font-size:9.5pt;font-family:Consolas;color:#76923C;background:white'>az
+aktuális offszet amit látunk a bufferb&#337;l</span></b></p>
+
+<p class=MsoNormal style='margin-bottom:0cm;margin-bottom:.0001pt;line-height:
+normal;text-autospace:none'><span style='font-size:9.5pt;font-family:Consolas;
+color:black;background:white'>       MAX_VPOS      </span><b><span
+style='font-size:9.5pt;font-family:Consolas;color:#76923C;background:white'>legnagyobb
+offszet</span></b></p>
+
+<p class=MsoNormal style='margin-bottom:0cm;margin-bottom:.0001pt;line-height:
+normal;text-autospace:none'><span style='font-size:9.5pt;font-family:Consolas;
+color:black;background:white'>       RUN           </span><b><span
+style='font-size:9.5pt;font-family:Consolas;color:#76923C;background:white'>program
+fut-e (boolean)</span></b></p>
+
+<p class=MsoNormal style='margin-bottom:0cm;margin-bottom:.0001pt;line-height:
+normal;text-autospace:none'><span style='font-size:9.5pt;font-family:Consolas;
+color:black;background:white'>       INPUT_MOD     </span><b><span
+style='font-size:9.5pt;font-family:Consolas;color:#76923C;background:white'>spec.
+karakter esetén egy 224-es jel miatt ezt ki kell sz&#369;rni</span></b></p>
+
+<p class=MsoNormal style='margin-bottom:0cm;margin-bottom:.0001pt;line-height:
+normal;text-autospace:none'><span style='font-size:9.5pt;font-family:Consolas;
+color:black;background:white'>       UNSAVED       </span><b><span
+style='font-size:9.5pt;font-family:Consolas;color:#76923C;background:white'>el
+van-e mentve a program</span></b></p>
+
+<p class=MsoNormal style='margin-bottom:0cm;margin-bottom:.0001pt;line-height:
+normal;text-autospace:none'><span style='font-size:9.5pt;font-family:Consolas;
+color:black;background:white'>       SELECTION_STATE </span><b><span
+style='font-size:9.5pt;font-family:Consolas;color:#76923C;background:white'>kijelölés
+meg van-e kezdve</span></b></p>
+
+<p class=MsoNormal style='margin-bottom:0cm;margin-bottom:.0001pt;line-height:
+normal;text-autospace:none'><span style='font-size:9.5pt;font-family:Consolas;
+color:black;background:white'>&nbsp;</span></p>
+
+<p class=MsoNormal style='margin-bottom:0cm;margin-bottom:.0001pt;line-height:
+normal;text-autospace:none'><span style='font-size:9.5pt;font-family:Consolas;
+color:blue;background:white'>unsigned</span><span style='font-size:9.5pt;
+font-family:Consolas;color:black;background:white'> </span><span
+style='font-size:9.5pt;font-family:Consolas;color:blue;background:white'>char</span><span
+style='font-size:9.5pt;font-family:Consolas;color:black;background:white'> **BUFFER,     </span><b><span
+style='font-size:9.5pt;font-family:Consolas;color:#76923C;background:white'>maga
+a buffer</span></b></p>
+
+<p class=MsoNormal style='margin-bottom:0cm;margin-bottom:.0001pt;line-height:
+normal;text-autospace:none'><span style='font-size:9.5pt;font-family:Consolas;
+color:black;background:white'>       *CLIPBOARD,          </span><b><span
+style='font-size:9.5pt;font-family:Consolas;color:#76923C;background:white'>vágólap</span></b></p>
+
+<p class=MsoNormal><span style='font-size:9.5pt;line-height:115%;font-family:
+Consolas;color:black;background:white'>       *FILENAME</span><span
+style='font-size:9.5pt;line-height:115%;font-family:Consolas;color:black'>            </span><b><span
+style='font-size:9.5pt;line-height:115%;font-family:Consolas;color:#76923C'>fájlnév</span></b></p>
+
+<p class=MsoNormal><span style='font-size:12.0pt;line-height:115%'>A függvények
+neve, visszatérési értéke és argumentumai önmagukat magyarázzák.</span></p>
+
+</div>
+
+</body>
+
+</html>

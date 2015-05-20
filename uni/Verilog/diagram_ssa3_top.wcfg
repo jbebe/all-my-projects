@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wave_config>
+   <wave_state>
+   </wave_state>
+   <db_ref_list>
+      <db_ref path="D:/BME/meres1/hazi/SSA3/vtf_ssa3_top_isim_beh.wdb" id="1" type="auto">
+         <top_modules>
+            <top_module name="glbl" />
+            <top_module name="vtf_ssa3_top" />
+         </top_modules>
+      </db_ref>
+   </db_ref_list>
+   <WVObjectSize size="7" />
+   <wave_markers>
+      <marker time="7864585000000" label="" />
+   </wave_markers>
+   <wvobject fp_name="/vtf_ssa3_top/rts" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">rts</obj_property>
+      <obj_property name="ObjectShortName">rts</obj_property>
+   </wvobject>
+   <wvobject fp_name="/vtf_ssa3_top/txd" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">txd</obj_property>
+      <obj_property name="ObjectShortName">txd</obj_property>
+   </wvobject>
+   <wvobject fp_name="/vtf_ssa3_top/clk" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">clk</obj_property>
+      <obj_property name="ObjectShortName">clk</obj_property>
+   </wvobject>
+   <wvobject fp_name="/vtf_ssa3_top/btn1" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">btn1</obj_property>
+      <obj_property name="ObjectShortName">btn1</obj_property>
+   </wvobject>
+   <wvobject fp_name="/vtf_ssa3_top/btn2" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">btn2</obj_property>
+      <obj_property name="ObjectShortName">btn2</obj_property>
+   </wvobject>
+   <wvobject fp_name="/vtf_ssa3_top/sw4" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">sw4</obj_property>
+      <obj_property name="ObjectShortName">sw4</obj_property>
+   </wvobject>
+   <wvobject fp_name="/vtf_ssa3_top/usrt_clk" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">usrt_clk</obj_property>
+      <obj_property name="ObjectShortName">usrt_clk</obj_property>
+   </wvobject>
+</wave_config>

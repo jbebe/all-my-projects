@@ -1,0 +1,26 @@
+<html><body><script type="text/javascript">
+
+var pal_1;
+var pal_2;
+var max = 0;
+var mul = 0;
+
+function isPalindrome(number){
+	number = number.toString();
+	for (var i = 0, l = number.length-1; i < number.length/2; i++){
+		if (number[i] != number[l-i])
+			return false;
+	}
+	return true;
+}
+
+for (pal_1 = 999; pal_1 > 0; pal_1--){
+	for (pal_2 = 999; pal_2 > 0; pal_2--){
+		mul = pal_1 * pal_2;
+		if (isPalindrome(mul))
+			if (mul > max) max = mul;
+	}
+}
+
+alert(max);
+</script></body></html>
