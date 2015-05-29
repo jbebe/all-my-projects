@@ -1,0 +1,161 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <title> - jsFiddle demo by jbebe</title>
+  
+  <style type='text/css'>
+    
+  </style>
+  
+
+
+<script type='text/javascript'>//<![CDATA[ 
+window.onload=function(){
+			var b = document.body;
+			var c = document.getElementsByTagName('canvas')[0];
+			var a = c.getContext('2d');
+			document.body.clientWidth; // fix bug in webkit: http://qfox.nl/weblog/218
+			var f = document.getElementById("fps");
+b.setAttribute("style","margin:0;");
+c.setAttribute("style","position:absolute;left:50%;top:50%;border:1px solid #000;");
+var WIDTH = c.width = 240;
+var HEIGHT = c.height = 320;
+var map_lenght = 64;
+var pi = 3.14159265359;
+var pi2 = 2*pi;
+var i = 0;
+c.style.margin = -((HEIGHT/2)|0) + "px -" + ((WIDTH/2)|0) + "px";
+
+//player
+var obj = {size:2,x:200,y:30,vx:2,vy:10,angle:45,speed:2};
+var gravity = 0.2;
+var friction = 0.8;
+var bounce_factor = 0.7;
+var closest_x, closest_y = 200;
+var collision_angle;
+
+var radians = obj.angle * Math.PI/ 180;
+obj.vx = Math.cos(radians) * obj.speed;
+obj.vy = Math.sin(radians) * obj.speed;
+
+
+//map
+var map_temp_x = 0;
+var map_temp_y = 0;
+var map_temp_x2 = 0;
+var map_temp_y2 = 0;
+var map = [];
+
+for (i = 0; i < map_lenght; i++){
+	if (i == 0)
+		map_temp_x = 0;
+	else 
+		map_temp_x = map[i-1].x+((Math.random()*50)|0);
+	//map_temp_y = (50*(Math.sin(i/2*pi)+1)+200)|0;
+	map_temp_y = ((Math.random()*50)|0) + 200; 
+	map.push({x:map_temp_x,y:map_temp_y});
+}
+
+a.strokeStyle = "#1cd71c";
+a.beginPath();
+
+for (i = 0; i < map_lenght-1; i++){
+	map_temp_x = map[i].x;
+	map_temp_y = map[i].y;
+	map_temp_x2 = map[i+1].x;
+	map_temp_y2 = map[i+1].y;
+	a.moveTo(map_temp_x,map_temp_y);
+	a.lineTo(map_temp_x2,map_temp_y2);
+	
+	a.moveTo(map_temp_x-10,map_temp_y-50);
+	a.lineTo(map_temp_x2-10,map_temp_y2-50);
+	a.lineTo(map_temp_x2,map_temp_y2);
+}
+a.stroke();
+
+circle(obj.x,obj.y,obj.size);
+
+window.onkeypress = function(e){
+	if (e.keyCode > 36 && e.keyCode < 41){
+		if (e.keyCode == 37){
+			obj.vx--;
+		}
+		if (e.keyCode == 39){
+			obj.vx++;
+		}
+	}
+}
+
+function draw(){
+	a.clearRect(0,0,WIDTH,HEIGHT);
+	a.fillStyle = "#fff";
+	circle(obj.x-1,obj.y-1,obj.size+2);
+	a.fillStyle = "#000";
+	
+	obj.vy += gravity;
+	obj.x += obj.vx;
+	obj.y += obj.vy;
+	
+	a.strokeStyle = "#1cd71c";
+	a.beginPath();
+	for (i = 0; i < map_lenght - 1; i++){
+		map_temp_x = map[i].x - obj.x + WIDTH/3 + 5;
+		map_temp_y = map[i].y - obj.y + HEIGHT/2 + 25;
+		map_temp_x2 = map[i+1].x - obj.x + WIDTH/3 + 5;
+		map_temp_y2 = map[i+1].y - obj.y + HEIGHT/2 + 25;
+		a.moveTo(map_temp_x,map_temp_y);
+		a.lineTo(map_temp_x2,map_temp_y2);
+		
+		a.moveTo(map_temp_x-10,map_temp_y-50);
+		a.lineTo(map_temp_x2-10,map_temp_y2-50);
+		a.lineTo(map_temp_x2,map_temp_y2);
+	}
+	a.stroke();
+	for (i = 1; i < map_lenght; i++){
+		if (map[i].x >= obj.x){
+			closest_y = (((map[i-1].y-map[i].y)*(map[i].x-obj.x))/(map[i].x-map[i-1].x)) + map[i].y;
+			collision_angle = Math.atan((closest_y-map[i].y)/(map[i].x-obj.x))/pi;
+			f.innerHTML = collision_angle;
+			break;
+		}
+	}
+	
+	if (obj.y >= closest_y) {
+		obj.y = closest_y
+		obj.vy = -(obj.vy) * bounce_factor;
+		obj.vx *= friction;
+		obj.vx -= 2*collision_angle;
+		if (collision_angle < 0.45)
+			obj.x -= 3*collision_angle;
+		
+		if ( Math.abs(obj.vy) <= .2 ) {
+			obj.vy = 0;
+		}
+		if ( Math.abs(obj.vx) <= .2 ) {
+			obj.vx = 0;
+		}
+	}
+	
+	circle(WIDTH/3,HEIGHT/2,obj.size);
+}
+
+setInterval(draw,1000/60);
+function circle(x,y,radius){a.beginPath();a.arc(x,y,radius,0,pi2,false);a.fill();}
+
+}//]]>  
+
+</script>
+
+
+</head>
+<body>
+  <div id="fps"></div>
+<canvas id="c"></canvas>
+  
+</body>
+
+
+</html>
+
