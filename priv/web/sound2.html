@@ -1,0 +1,210 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <title> - jsFiddle demo by jbebe</title>
+  
+  <style type='text/css'>
+    
+  </style>
+  
+
+
+<script type='text/javascript'>//<![CDATA[ 
+window.onload=function(){
+		var b = document.body;
+		var c = document.getElementsByTagName('canvas')[0];
+		var a = c.getContext('2d');
+
+var WavHeader = "data:audio/wav;base64,UklGRgWsAABXQVZFZm10IBAAAAABAAEARKwAAESsAAABAAgAZGF0YeGrAACA";
+		var Freq = (2 * Math.PI / 44000);
+
+		var D4 = 293.66,
+			A_4 = 466.16,
+			G4 = 392.00,
+			D3 = 146.83,
+			A_2 = 116.54,
+			G2 = 98.00,
+			D2 = 73.42;
+
+		var Music = {
+			Choords: {
+				Lead: new Float32Array(64),
+				Bass: new Float32Array(64),
+				Hit: new Float32Array(64),
+				Kick: new Float32Array(64)
+			},
+			RawStrings: {
+				Lead: "",
+				Bass: "",
+				Hit: "",
+				Kick: ""
+			},
+			AudioObjects: {
+				Lead: new Array(64),
+				Bass: new Array(64),
+				Hit: new Array(64),
+				Kick: new Array(64)
+			}
+		};
+
+		for (var i = 0; i < 64; ++i) {
+			if (i < 32) {
+				Music.Choords.Lead[i] = D4;
+				Music.Choords.Bass[i] = D3;
+			}
+			else {
+				if (i < 48) {
+					Music.Choords.Lead[i] = A_4;
+					Music.Choords.Bass[i] = A_2;
+				}
+				else {
+					Music.Choords.Lead[i] = G4;
+					Music.Choords.Bass[i] = G2;
+				}
+			}
+			Music.Choords.Hit[i] = (i % 4 == 2) ? 1.0 : 0.0;
+			Music.Choords.Kick[i] = (i % 8 == 0 || i % 8 == 1 || i % 8 == 5) ? D2 : 0.0;
+			if (i == 31 || i == 47 || i == 63) {
+				Music.Choords.Bass[i] = 0.0;
+			}
+		}
+
+		for (var i = 0; i < 64; ++i) {
+			for (var x = 0; x < 10e3; ++x) {
+				Music.RawStrings.Lead += String.fromCharCode(
+					(Math.cos(x * Freq * Music.Choords.Lead[i]) > .7 ? 1 : -1) * 127 + 128
+				);
+				Music.RawStrings.Bass += String.fromCharCode(
+					(Math.cos(x * Freq * Music.Choords.Bass[i]) > .7 ? 1 : -1) * 127 + 128
+				);
+				if (x < 30e2) {
+					Music.RawStrings.Hit += String.fromCharCode(
+						Math.random() * 255 * Music.Choords.Hit[i]
+					);
+				}
+				else {
+					Music.RawStrings.Hit += String.fromCharCode(
+						0
+					);
+				}
+				Music.RawStrings.Kick += String.fromCharCode(
+					Math.cos(Math.sqrt(x + 80 * Math.random()) * 200 * Freq * Music.Choords.Kick[i]) * 127 + 128
+				);
+			}
+
+			(Music.AudioObjects.Lead[i] = new Audio(WavHeader + btoa(Music.RawStrings.Lead))).volume = 0.2;
+			Music.RawStrings.Lead = "";
+
+			(Music.AudioObjects.Bass[i] = new Audio(WavHeader + btoa(Music.RawStrings.Bass))).volume = 0.2;
+			Music.RawStrings.Bass = "";
+
+			(Music.AudioObjects.Hit[i] = new Audio(WavHeader + btoa(Music.RawStrings.Hit))).volume = 0.5;
+			Music.RawStrings.Hit = "";
+
+			(Music.AudioObjects.Kick[i] = new Audio(WavHeader + btoa(Music.RawStrings.Kick))).volume = 0.5;
+			Music.RawStrings.Kick = "";
+		}
+
+
+		/*
+			Graphics
+		*/
+
+		var WIDTH = c.width = 360,
+			HEIGHT = c.height = (WIDTH*9/16)|0,
+			CENTX = (WIDTH / 2) | 0,
+			CENTY = (HEIGHT / 2) | 0;
+
+		b.setAttribute("style", "background:#000; margin:0;")
+		c.setAttribute("style", "width:100%; height: 100%");
+
+		var grd = a.createRadialGradient(CENTX, CENTY, 0, CENTX, 0, WIDTH);
+		grd.addColorStop(0, "#eeffff");
+		grd.addColorStop(0.1, "#bf8d58");
+		grd.addColorStop(0.6, "#000");
+
+		var j = 0;
+		function draw() {
+			
+			// background
+			a.fillStyle = grd;
+			a.fillRect(0, 0, WIDTH, HEIGHT);
+			
+			// circles 
+			a.fillStyle = "#000";
+			a.beginPath();
+			for (var x = 0; x < 300; x += 5) {
+				var y = Math.sqrt(Math.pow(WIDTH / 2, 2) - Math.pow(x-CENTX*1.2, 2)) - 50;
+				
+				a.beginPath();
+				a.moveTo(x + Math.random() * 10, y + Math.random() * x / 2);
+				a.lineTo(x + Math.random() * x / 2, y + Math.random() * x / 2);
+				a.lineTo(x + Math.random() * x / 2, y + Math.random() * x / 2);
+				a.fill();
+				
+				a.beginPath();
+				a.moveTo(50+ x + Math.random()*20, HEIGHT - y  + Math.random()*10);
+				a.lineTo(50 + x + Math.random()*10, HEIGHT - y + Math.random()*20);
+				a.lineTo(50 + x + Math.random()*10, HEIGHT - y + Math.random()*10);
+				a.fill();
+				
+				a.beginPath();
+				a.moveTo(160 + 0.2 * x + Math.random() * 20, HEIGHT - 2*y + Math.random() * 50);
+				a.lineTo(160 + 0.1 * x + Math.random() * 10, HEIGHT - 2*y + Math.random() * 20);
+				a.lineTo(160 + 0.1 * x + Math.random() * 10, HEIGHT - 2*y + Math.random() * 50);
+				a.fill();
+			}
+			
+			// lines
+			a.fillStyle = "rgba(0,0,0,0.3)";
+			for (j = 0; j < HEIGHT; ++j) {
+				a.fillRect(0, j<<1, WIDTH, 1);
+			}
+			
+			a.fillStyle = "#fff";
+			a.fillText("CHAOS.", WIDTH * 0.8, HEIGHT * 0.8);
+		}
+
+		/*
+			Render
+		*/
+
+		var i = 0 | 0;
+		var p = 0 | 0;
+		function render() {
+			draw();
+			if (p === 1) {
+				Music.AudioObjects.Lead[i].play();
+				Music.AudioObjects.Bass[i].play();
+				Music.AudioObjects.Hit[i].play();
+				Music.AudioObjects.Kick[i].play();
+
+				++i;
+				if (i === 64) {
+					i = 0;
+				}
+
+				p = 0;
+			}
+			else {
+				++p;
+			}
+		}
+
+		var t = setInterval(render, (1000 / 14) | 0);
+}//]]>  
+
+</script>
+
+
+</head>
+<body>
+  <canvas id="c"></canvas>
+  
+</body>
+
+
+</html>
+
