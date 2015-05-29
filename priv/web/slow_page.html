@@ -235,4 +235,69 @@ Do not send more than 15 patches at once to the vger mailing lists!!!
 				Penis 2013(R)
 			</div>
 		</div>
+<script>
+/*
+			Load image
+		*/
+			var counter = 0;
+			var logo = document.getElementById("logo");
+			var screen = document.getElementById("screen");
+			var screen_default_marginTop = +(screen.currentStyle || window.getComputedStyle(screen)).marginTop.replace("px","");
+			var t_load = setInterval(load_image, 70);
+			
+			function load_image(){
+				logo.style.height = (++counter) + "px";
+				if (counter == 56)
+					clearInterval(t_load);
+			}
+			function flash_begin(){
+				screen.style.visibility = "hidden";
+				setTimeout(flash_end, 50);
+			}
+			function flash_end(){
+				screen.style.visibility = "visible";
+			}
+		/*
+			scroll flash
+		*/
+			window.onscroll = scroll_freeze;
+			var curtain = document.getElementById("curtain");
+			curtain.style.display = "block";
+			var t_screen_down = setInterval(scroll_down, 50);
+			var wait_for_scroll = 0;
+			var current_scoll_pos = 0;
+			var t_scroll;
+			var t_screen_down;
+			function scroll_freeze(){
+				//window.scrollTo(0,0);
+				//window.pageYOffset
+				if (wait_for_scroll === 1){
+					clearTimeout(t_scroll);
+				}
+				else {
+					wait_for_scroll = 1;
+				}
+				screen.style.marginTop = screen_default_marginTop + (window.pageYOffset-current_scoll_pos) + "px";
+				t_scroll = setTimeout(scroll_redraw, 500);
+			}
+			function scroll_redraw(){
+				screen.style.marginTop = screen_default_marginTop + "px";
+				wait_for_scroll = 0;
+				current_scoll_pos = window.pageYOffset;
+				curtain.style.display = "block";
+				t_screen_down = setInterval(scroll_down, 30);
+			}
+			var scroll_down_counter = 0;
+			function scroll_down(){
+				if (scroll_down_counter > window.innerHeight || window.pageYOffset >= screen.offsetHeight - window.innerHeight){
+					clearInterval(t_screen_down);
+					scroll_down_counter = 0;
+					curtain.style.display = "none";
+					flash_begin();
+					return;
+				}
+				curtain.style.top = scroll_down_counter + "px";
+				scroll_down_counter += 20;
+			}
+</script>
 </body>
