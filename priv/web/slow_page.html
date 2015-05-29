@@ -1,0 +1,238 @@
+<head>
+<style>
+body {
+				margin: 0;
+				background: #fff;
+				font: 12px/18px 'Courier New', 'Lucida Console', monospace;
+				color: #000;
+			}
+			#screen {
+				margin: 20px;
+				width: 620px;
+			}
+			#header {
+				width: 620px;
+				height: 100px;
+			}
+			#logo-container {
+				width: 302px;
+				height: 56px;
+			}
+			#logo {
+				width: 302px;
+				height: 0px;
+				background: #fff url(data:image/gif;base64,R0lGODlhLgE4ALMAAAAzmZzO/////9bn/6W13kpzvXOl/2uUzv7+/jFjpQAAAAAAAAAAAAAAAAAAAAAAACH5BAAAAAAALAAAAAAuATgAAAT/MMhJq7046827/2AocsNUSuWZosGQvm4sz3Q9CC4u6Hvv/8CgcEgcGY/ISizJTJ4sz5WqRVVNqzOstGWj6W5gXE4mBpt54dtOTWwPm/B4huyS2zsrzfMyrfu1fjZcM2VdYmuHbGqLP2w8iG5ud5NOXj11lJlKVZycL1SDnp8wNINddF+LMYdlaIg5X5eRswKatniGjbe7elBRWICjp15mdLBjrD6MskGKtEK80SjDQnvSclueLL+hMFymgaSrNYWFjKpnzspEjs+115rDq0XwI32gmxR5MqLfpcOmAiQihCxRMkdhYkFa6O5HvSaE1siL9DDOlU4s9PVbEg6cvHHm/9IZFMmsWsM3FY3cMHFSUkqL+LJ5k/KHH0eP43LmHKgQliuECltCewnCRYGjBaYJRUl0Qx5Q1mJOg6plWrguOIvtBJlQ3aOgJRk2bIoLKVJ9S4eSxbMNI7c+Na/OnMgVmd1Yds+tA9Ku5do5A8yatZA2yN98GXtltAKVprB/5GyYG5kmqNdXhR0e1hdY8GAomZVtnpN4yz64M3FmPZUqDTrMCV1hDvt17OgSnj1j8Jk5KlFufKSaGH46oOO5kQnqlMjK9aOufGnTOlwnt/Xd5KrNk7hotPCnw9v+6SbuI7XIqSD5BNq3duG1Rq3L14MUwIECB3iHlOy7qe974NHkj/82Nq1mDCrpnKOXWMvs9d5L1cknYVISmAXAUQBkqKGGR6HzkRj+7QbFJgJGIUh55KHHH1c/LQiUdCfVM8OENB4VwIY45pjjfdzR1d811uzx1D4UGGBAAEdKcGSSGi1W4kYGlmPJPOvNVtmCbUgDRgA1yqdjAjqGKeZRPbKGyQhGpqnmmmy26eabRiIpZ5xzGlCCnXPW5GQwHJlHjGWqWDZEe0zdgluXFoqp6KKKJlBAmfzBKemklFa6JJJq1onkCXiG5ykm4x3HJ4JSFtPclXi5R9EunjHq6quw5tjhfjNYauutcGKa6ZKXKinnpktedBopxkFmJk9dVaaqemIZZkv/fbFGK22sCbSz3p24ZqttnLxqym0LSb4QLlWgPtknXbUg69xzysTWDD2TFADmtPTW+2oBhCqz7b6T6srtpUkeOYDAASf26WPIlbBfqcreBV177roUB4b2Vmzxoo9eay2/HPOapreaDuzrwEFCOYo/Np23sMM8wfZVvpodcV8BF9dss6L15cbbwB3v6y+mcwaNJ5ObDrmnaXHJxR93Li8TsVAcGFCAATPLe/PVWEdrnUQ926oryAD/iifJJW+EYnLJTcYiqupc5kbWcMctd4Zm7WBW17d+HbbIv5rQqYBVEYs0KgKBlOpd0bHbrBBzN+541gIAIMDdeO8qtK+X8t3p/9BXoBYMn7WsqFWqeDW8EMxBPK766lnTjFTlbQod7MgGm6bNqH5emVd6BVm7+BCsBy881o7el7flYfeKORV/SzV4yrgjuPZIJoH1OxDDZ699xWB2L5ikdSYvtBQCl0ZguaMaeOAYxzhHZSMnbS///IzOi2MC+APQvf787w/mUY4KoGeqdpT7GBA/BSBAAhdIgAM08IEPdCABJihBCU7wghgcAAECQAANerCDGgSR9GRhqp5Yzwf0S6EKczSvFuoPfzCMoQBliD8AWoeA+DmADhmYQB36sIEWpKAQMdjBIn4wg0UUwAQ1SAAcdFAgSfwTsxSnrMit8Irbsx//NuS//v/pT15gvND/wGgWHN5HgTxUoAJ1uEYHupGIFaQgE5dIRCU28Y5GvKMS9xjCJkakbcx6mhXDhIBCGhIBqjukIhGJxbl1MYYvfGH3/FfDC8nLUYJJwMwIeIAEqDGHcRTiG98IQQxycI5KZKIq9ajHwt3Aj69kn16cVr1BismQwsMlAA7ZyOFNMkP5+18lZ0hGpHCShwn0pAMZOMoLBnGJDpzjBaWpyg+mMokgzIErFSKQnzStNovSJevEuctC9hJuWnzkJCdpNUeJkWYBxOQxd4jATYKynqD0oT736UOq8fOfEQyoKEsJxzrasYm0CKc5g0dOcp5zfi2kYTxpCEABTqj/avP8p0Z/OEo2EvGjID0oHhG6xx6QlHGKcujjxKnSh15Ni1yMqf1+KdEYXpKMmDQLJnOawwLmc4c+zOdPA2pBUoL0qB/dwQXtOAuFMjJaC6WXLlUaVZeiE5hcXKckKVrDndJok5zU509/WsF9QtCjzhxiQTG4R7aaNAgkJWlKq5ojumbIrrFa5FM3FFVz4vWuOPqrQmElWGm5kIVdxCoMtypDnN6Up8Y8ID43CtSNAhGDRj2qSDWrx5J6FqWELGxh68VS0e5VR3QdbWhXCNNI1nSiFS0moshaz6BS9rJufCZBMYvUCZrUt3F92y37yki/IpK4yC0uL+ta1dIu1Ljl/4zucu963KcuF7rRLedzq0td6qqWWjJ1ofdea1EbykeTPj0gZcW6XqKutbcHFSkQTioEAgx3r9vVrnQ1hN3mnla/fH0uf7lrXAKfFpf9ra6Bdzlg/ULXuv+9mHhfe8mu3jSTNpSnMWurUaHelqOhfKZu4Qvczyo1daHFr3Kzm1wABxi1qfXvg7kr3QOvOL84hnCCs6vdCMcUVumUpGttKtHHyvaGBgQqWdcLYo6mtbfA1eyJfUBfFDfYxSymcY69C+EUB5a4NQ6zmK+84y2H2czYnVZrNQTTxbq5phc2L4Z9Gtl9LlmsQOwobkX8ZM6ysq3zBd6AV/xiMe940N2Fsf+Ku3xmLdOYzI7OsqEjfWgg14/NkQQmeSsMw6+GVb1MZqOoyzpiKJeaqQjFYyQK7dACSxrNj/7yohk941fbuLuwnrSDF8xje7WZzRGlcGN36tUBevie/OypZfXJ2yDqttRLrbKJsRfgv9Y6y1PNtnP1+l9FNjrR/gV3tnGtXARHusc+9jVW+0deitIIsuntsLw16l4ohzTawZU2lVFo1X4n+spx+/WbO03wgmf4ospWdqiZDdA+73akdYT4W/cNWn+7NNyPm+k6h7lpz0A2p/S8M7JDneeP8hnK8vXtxCnOb4u7nHX7y+rGixzP3EA2yelVuMgtK1BnQxu+8V2qcF97TvSrrluxmy54p8EIbzlLtrILL/mof2hvfEO8xIGedg+KzvWMH7bdXV16eY8c8oXfmZ9DDGXVk5pqlTe163An3v0gSXOCM33OZcSnh9trQKmjde0oj/KUVx33wl9aTBpX57AnKvYj8xS9HN772e8s0If/3OoljWuVTxoBADs=) no-repeat 0 0;
+			}
+			#menu {
+				margin-top: 3px;
+				text-align: center;
+				width: 302px;
+			}
+			#menu td {
+				border: #000 1px solid;
+			}
+			#footer {
+				text-align: center;
+			}
+			#footer-border {
+				margin: 10px 20px;
+			}
+			#curtain {
+				display: none;
+				position: fixed;
+				width: 100%;
+				height: 100%;
+				top: 0;
+				left: 0;
+				background: #fff;
+			}
+</style>
+</head>
+<body>
+<div id="curtain"></div>
+		<div id="screen">
+			<div id="header">
+				<div id="logo-container">
+					<div id="logo"></div>
+				</div>
+				<table id="menu">
+					<tr>
+						<td><a href="#">Hírek</a></td>
+						<td><a href="#">Project</a></td>
+						<td><a href="#">Linkek</a></td>
+						<td><a href="#">Kapcsolat</a></td>
+					</tr>
+				</table>
+			</div>
+			<pre id="content">
+For a person or company who wishes to submit a change to the Linux
+kernel, the process can sometimes be daunting if you're not familiar
+with "the system."  This text is a collection of suggestions which
+can greatly increase the chances of your change being accepted.
+
+Read Documentation/SubmitChecklist for a list of items to check
+before submitting code.  If you are submitting a driver, also read
+Documentation/SubmittingDrivers.
+
+
+
+--------------------------------------------
+SECTION 1 - CREATING AND SENDING YOUR CHANGE
+--------------------------------------------
+
+
+
+1) "diff -up"
+------------
+
+Use "diff -up" or "diff -uprN" to create patches.
+
+All changes to the Linux kernel occur in the form of patches, as
+generated by diff(1).  When creating your patch, make sure to create it
+in "unified diff" format, as supplied by the '-u' argument to diff(1).
+Also, please use the '-p' argument which shows which C function each
+change is in - that makes the resultant diff a lot easier to read.
+Patches should be based in the root kernel source directory,
+not in any lower subdirectory.
+
+To create a patch for a single file, it is often sufficient to do:
+
+	SRCTREE= linux-2.6
+	MYFILE=  drivers/net/mydriver.c
+
+	cd $SRCTREE
+	cp $MYFILE $MYFILE.orig
+	vi $MYFILE	# make your change
+	cd ..
+	diff -up $SRCTREE/$MYFILE{.orig,} > /tmp/patch
+
+To create a patch for multiple files, you should unpack a "vanilla",
+or unmodified kernel source tree, and generate a diff against your
+own source tree.  For example:
+
+	MYSRC= /devel/linux-2.6
+
+	tar xvfz linux-2.6.12.tar.gz
+	mv linux-2.6.12 linux-2.6.12-vanilla
+	diff -uprN -X linux-2.6.12-vanilla/Documentation/dontdiff \
+		linux-2.6.12-vanilla $MYSRC > /tmp/patch
+
+"dontdiff" is a list of files which are generated by the kernel during
+the build process, and should be ignored in any diff(1)-generated
+patch.  The "dontdiff" file is included in the kernel tree in
+2.6.12 and later.
+
+Make sure your patch does not include any extra files which do not
+belong in a patch submission.  Make sure to review your patch -after-
+generated it with diff(1), to ensure accuracy.
+
+If your changes produce a lot of deltas, you may want to look into
+splitting them into individual patches which modify things in
+logical stages.  This will facilitate easier reviewing by other
+kernel developers, very important if you want your patch accepted.
+There are a number of scripts which can aid in this:
+
+Quilt:
+http://savannah.nongnu.org/projects/quilt
+
+Andrew Morton's patch scripts:
+http://userweb.kernel.org/~akpm/stuff/patch-scripts.tar.gz
+Instead of these scripts, quilt is the recommended patch management
+tool (see above).
+
+
+
+2) Describe your changes.
+
+Describe the technical detail of the change(s) your patch includes.
+
+Be as specific as possible.  The WORST descriptions possible include
+things like "update driver X", "bug fix for driver X", or "this patch
+includes updates for subsystem X.  Please apply."
+
+The maintainer will thank you if you write your patch description in a
+form which can be easily pulled into Linux's source code management
+system, git, as a "commit log".  See #15, below.
+
+If your description starts to get long, that's a sign that you probably
+need to split up your patch.  See #3, next.
+
+When you submit or resubmit a patch or patch series, include the
+complete patch description and justification for it.  Don't just
+say that this is version N of the patch (series).  Don't expect the
+patch merger to refer back to earlier patch versions or referenced
+URLs to find the patch description and put that into the patch.
+I.e., the patch (series) and its description should be self-contained.
+This benefits both the patch merger(s) and reviewers.  Some reviewers
+probably didn't even receive earlier versions of the patch.
+
+If the patch fixes a logged bug entry, refer to that bug entry by
+number and URL.
+
+If you want to refer to a specific commit, don't just refer to the
+SHA-1 ID of the commit. Please also include the oneline summary of
+the commit, to make it easier for reviewers to know what it is about.
+Example:
+
+	Commit e21d2170f36602ae2708 ("video: remove unnecessary
+	platform_set_drvdata()") removed the unnecessary
+	platform_set_drvdata(), but left the variable "dev" unused,
+	delete it.
+
+
+3) Separate your changes.
+
+Separate _logical changes_ into a single patch file.
+
+For example, if your changes include both bug fixes and performance
+enhancements for a single driver, separate those changes into two
+or more patches.  If your changes include an API update, and a new
+driver which uses that new API, separate those into two patches.
+
+On the other hand, if you make a single change to numerous files,
+group those changes into a single patch.  Thus a single logical change
+is contained within a single patch.
+
+If one patch depends on another patch in order for a change to be
+complete, that is OK.  Simply note "this patch depends on patch X"
+in your patch description.
+
+If you cannot condense your patch set into a smaller set of patches,
+then only post say 15 or so at a time and wait for review and integration.
+
+
+
+4) Style check your changes.
+
+Check your patch for basic style violations, details of which can be
+found in Documentation/CodingStyle.  Failure to do so simply wastes
+the reviewers time and will get your patch rejected, probably
+without even being read.
+
+At a minimum you should check your patches with the patch style
+checker prior to submission (scripts/checkpatch.pl).  You should
+be able to justify all violations that remain in your patch.
+
+
+
+5) Select e-mail destination.
+
+Look through the MAINTAINERS file and the source code, and determine
+if your change applies to a specific subsystem of the kernel, with
+an assigned maintainer.  If so, e-mail that person.  The script
+scripts/get_maintainer.pl can be very useful at this step.
+
+If no maintainer is listed, or the maintainer does not respond, send
+your patch to the primary Linux kernel developer's mailing list,
+linux-kernel@vger.kernel.org.  Most kernel developers monitor this
+e-mail list, and can comment on your changes.
+
+
+Do not send more than 15 patches at once to the vger mailing lists!!!
+</pre>
+			<div id="footer">
+				<hr id="footer-border"/>
+				Penis 2013(R)
+			</div>
+		</div>
+</body>
