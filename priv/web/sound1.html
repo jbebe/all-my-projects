@@ -1,0 +1,129 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <title> - jsFiddle demo by jbebe</title>
+  <style type='text/css'>
+    
+  </style>
+  
+<script type='text/javascript'>//<![CDATA[ 
+window.onload=function(){
+		var b = document.body;
+		var c = document.getElementsByTagName('canvas')[0];
+		var a = c.getContext('2d');
+
+var WIDTH = c.width = 640,
+			HEIGHT = c.height = 360,
+			CENTX = (WIDTH / 2) | 0,
+			CENTY = (HEIGHT / 2) | 0;
+		a.fillRect(0, 0, WIDTH, HEIGHT);
+		var tune = [
+			587.33, 587.33, 587.33, 587.33, 587.33, 587.33, 587.33, 587.33, 587.33, 587.33, 587.33, 587.33, 587.33, 587.33, 587.33, 587.33,
+			932.33, 932.33, 932.33, 932.33, 932.33, 932.33, 932.33, 932.33,
+			783.99, 783.99, 783.99, 783.99, 783.99, 783.99, 783.99, 783.99
+		];
+		var bassLine = [
+			587.33, 587.33, 587.33, 587.33, 587.33, 587.33, 587.33, 587.33, 587.33, 587.33, 587.33, 587.33, 587.33, 587.33, 587.33, 587.33,
+			466.16, 466.16, 466.16, 466.16, 466.16, 466.16, 466.16, 466.16,
+			392.00, 392.00, 392.00, 392.00, 392.00, 392.00, 392.00, 392.00
+		];
+		var base64header = "data:audio/wav;base64,UklGRgWsAABXQVZFZm10IBAAAAABAAEARKwAAESsAAABAAgAZGF0YeGrAACA";
+		var Waves = new Array(tune.length);
+		var BassWaves = new Array(tune.length);
+		var WaveStr = "";
+		var bassStr = "";
+		var frequency = (2 * Math.PI / 44100);
+		var noiseType;
+		var bassType;
+		var noiseAmp;
+		var bassAmp;
+		var i;
+		var x;
+		for (i = 0; i < tune.length; ++i) {
+			for (x = 0; x < 40e3; x++) {
+				noiseType = Math.cos(x * 0.25 * tune[i] * frequency) < 0.7 ? 1 : -1;
+				noiseAmp = (1 - Math.sqrt(x) / 210);
+				WaveStr += String.fromCharCode(noiseType * noiseAmp * 127 + 128);
+
+				bassType = Math.cos(x * 0.125 * bassLine[i] * frequency) < 0.7 ? 1 : -1;
+				bassStr += String.fromCharCode(bassType * noiseAmp * 127 + 128);
+			}
+			Waves[i] = new Audio(base64header + btoa(WaveStr));
+			BassWaves[i] = new Audio(base64header + btoa(bassStr));
+			Waves[i].volume = 0.02;
+			BassWaves[i].volume = 0.02;
+			WaveStr = "";
+			bassStr = "";
+		}
+		i = 0;
+		var counter = 0;
+		var randOff = 0;
+		var rot = [-0.05, 0.02, -0.02, 0.05];
+		var rot_i = 0;
+		function draw() {
+			var grd = a.createRadialGradient(CENTX, CENTY, 0, CENTX, 0, WIDTH);
+			grd.addColorStop(0, "#eeffff");
+			grd.addColorStop(0.1, "#ecc091");
+			grd.addColorStop(0.6, "#000");
+			a.fillStyle = grd;
+			a.fillRect(0, 0, WIDTH, HEIGHT);
+			a.fillStyle = "#000";
+			for (var x = 100; x < 500;) {
+				randOff = Math.random() * 10;
+				a.beginPath();
+				a.moveTo(x + randOff, randOff - Math.sqrt((CENTX * CENTX)/2 - Math.pow(x - CENTX, 2)) + HEIGHT);
+				x += ((Math.random() * 30) + 1) | 0
+				a.lineTo(x - randOff, -randOff - Math.sqrt((CENTX * CENTX) / 2 - Math.pow(x - CENTX, 2)) + HEIGHT);
+				x += ((Math.random() * 30) + 1) | 0
+				a.lineTo(x + randOff, randOff - Math.sqrt((CENTX * CENTX) / 2 - Math.pow(x - CENTX, 2)) + HEIGHT);
+				a.fill();
+
+				x -= 30;
+				a.beginPath();
+				a.moveTo(x + randOff, randOff + Math.sqrt((CENTX * CENTX) / 2 - Math.pow(x - CENTX, 2)));
+				x += ((Math.random() * 30) + 1) | 0
+				a.lineTo(x - randOff, -randOff + Math.sqrt((CENTX * CENTX) / 2 - Math.pow(x - CENTX, 2)));
+				x += ((Math.random() * 30) + 1) | 0
+				a.lineTo(x + randOff, randOff + Math.sqrt((CENTX * CENTX) / 2 - Math.pow(x - CENTX, 2)));
+				a.fill();
+			}
+			a.translate(CENTX, CENTY);
+			a.rotate(rot[rot_i]);
+			++rot_i;
+			if (rot_i == 4) {
+				rot_i = 0;
+			}
+			a.translate(-CENTX, -CENTY);
+		}
+		var t = setInterval(function () {
+			draw();
+			if (counter > 0.017) {
+				Waves[i].play();
+				BassWaves[i].play();
+				if (i == tune.length - 1) {
+					i = 0;
+				}
+				else {
+					++i;
+				}
+				counter = 0;
+			}
+			counter += 0.01;
+		}, (1000 / 15) | 0);
+
+}//]]>  
+
+</script>
+
+
+</head>
+<body>
+  <canvas id="c"></canvas>
+  
+</body>
+
+
+</html>
+
