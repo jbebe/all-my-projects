@@ -1,0 +1,163 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <title> - jsFiddle demo by jbebe</title>
+  
+  <style type='text/css'>
+    
+  </style>
+  
+
+
+<script type='text/javascript'>//<![CDATA[ 
+window.onload=function(){
+			var b = document.body;
+			var c = document.getElementsByTagName('canvas')[0];
+			var a = c.getContext('2d');
+
+// resource
+var icons = document.createElement("img");
+icons.src = "http://i.imgur.com/L0goOqL.gif";
+
+var WIDTH = c.width = 164,
+	HEIGHT = c.height = 207;
+var block_size = 16;
+var dimension_x = dimension_y = 9;
+var rect = c.getBoundingClientRect();
+
+/*
+	0: empty
+	1: 1
+	2: 2
+	3: 3
+	4: 4
+	5: 5
+	6: 6
+	7: 7
+	8: 8
+	9: mine
+*/
+
+// init table
+a.fillStyle = "#fff";
+a.fillRect(0, 0, WIDTH, HEIGHT);
+var table = new Array(9);
+for (var i = 0; i < dimension_y; ++i)
+{
+	table[i] = new Array(9);
+	for (var j = 0; j < dimension_x; ++j)
+	{
+		table[i][j] = { under: 0, top: 1 };
+	}
+}
+
+// init mines
+var rand_x = ((Math.random()*dimension_x)|0),
+	rand_y = ((Math.random()*dimension_y)|0),
+	num_of_mines = 10;
+while (num_of_mines--)
+{
+	do 
+	{
+		rand_x = (rand_x + ((Math.random()*dimension_x)|0))%dimension_x;
+		rand_y = (rand_y + ((Math.random()*dimension_y)|0))%dimension_y;
+	} 
+	while (table[rand_y][rand_x].under != 0);
+	table[rand_y][rand_x].under = 9;
+}
+
+// init numbers
+var count_mines;
+for (var i = 0; i < dimension_y; ++i)
+{
+	for (var j = 0; j < dimension_x; ++j)
+	{
+		/*
+				i-1	 i	i+1
+			j-1
+			 j
+			j+1
+		*/
+		count_mines = 0;
+		if (table[i][j].under != 9){
+			if (i-1 >= 0 		  && j-1 >= 0 		   && table[i-1][j-1].under == 9) ++count_mines;
+			if (					 j-1 >= 0 		   && table[i  ][j-1].under == 9) ++count_mines;
+			if (i+1 < dimension_x && j-1 >= 0 		   && table[i+1][j-1].under == 9) ++count_mines;
+			if (i-1 >= 0 							   && table[i-1][j  ].under == 9) ++count_mines;
+			if (i+1 < dimension_x 					   && table[i+1][j  ].under == 9) ++count_mines;
+			if (i-1 >= 0 		  && j+1 < dimension_y && table[i-1][j+1].under == 9) ++count_mines;
+			if (					 j+1 < dimension_y && table[i  ][j+1].under == 9) ++count_mines;
+			if (i+1 < dimension_x && j+1 < dimension_y && table[i+1][j+1].under == 9) ++count_mines;
+			table[i][j].under = count_mines;
+		}
+	}
+}
+
+// draw table
+for (var i = 0; i < dimension_y; ++i)
+{
+	for (var j = 0; j < dimension_x; ++j)
+	{
+		a.drawImage(icons, 0, 10*block_size, block_size, block_size, j*block_size, i*block_size, block_size, block_size);
+	}
+}
+
+// mouse event
+var table_pos;
+
+c.addEventListener('mousedown', function(e) {
+	var mouse_pos = { x: e.clientX - rect.left, y: e.clientY - rect.top };
+	table_pos = { x: (mouse_pos.y/block_size)|0, y: (mouse_pos.x/block_size)|0 };
+	if (table[table_pos.y][table_pos.x].top != 0){
+		a.drawImage(icons, 0, 0, block_size, block_size, table_pos.y*block_size, table_pos.x*block_size, block_size, block_size);
+	}
+}, false);
+
+c.addEventListener('mouseup', function(e) {
+	var mouse_pos = { x: e.clientX - rect.left, y: e.clientY - rect.top };
+	var table_pos2 = { x: (mouse_pos.y/block_size)|0, y: (mouse_pos.x/block_size)|0 };
+	if (table[table_pos.y][table_pos.x].top != 0){
+		if (table_pos.x == table_pos2.x && table_pos.y == table_pos2.y){
+			show_all_empty(table_pos.x, table_pos.y);
+			table[table_pos.y][table_pos.x].top = 0;
+			a.drawImage(icons, 0, (table[table_pos.y][table_pos.x].under)*block_size, block_size, block_size, table_pos.y*block_size, table_pos.x*block_size, block_size, block_size);
+		}
+		else {
+			a.drawImage(icons, 0, 10*block_size, block_size, block_size, table_pos.y*block_size, table_pos.x*block_size, block_size, block_size);
+		}
+	}
+}, false);
+
+// recursive show
+function show_all_empty(x, y){
+	if (x >= 0 && x < dimension_x && y >= 0 && y < dimension_y){
+		if (table[y][x].under == 0 && table[y][x].top != 0){
+			table[y][x].top = 0;
+			a.drawImage(icons, 0, 0, block_size, block_size, y*block_size, x*block_size, block_size, block_size);
+			show_all_empty(x, y-1);
+			show_all_empty(x-1, y);
+			show_all_empty(x+1, y);
+			show_all_empty(x, y+1);
+		}
+		else if (table[y][x].under != 9){
+			a.drawImage(icons, 0, table[y][x].under*block_size, block_size, block_size, y*block_size, x*block_size, block_size, block_size);
+			table[y][x].top = 0;
+		}
+	}
+}
+}//]]>  
+
+</script>
+
+
+</head>
+<body>
+  <canvas id="c"></canvas>
+  
+</body>
+
+
+</html>
+
